@@ -1,8 +1,8 @@
 {
-  "name": "citely",
+  "name": "casinobyhacky",
   "private": true,
   "type": "module",
-  "description": "Citely — daily casino claim tracker with a slot-machine UI, served at /citely.",
+  "description": "CasinobyHacky — daily casino claim tracker with a slot-machine UI, served at /casinobyhacky.",
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "test": "vitest run",

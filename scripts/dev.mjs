@@ -1,4 +1,4 @@
-// Local dev server: serves the page at /citely and the API at /citely/api/* on http://localhost:3000.
+// Local dev server: serves the page at /casinobyhacky and the API at /casinobyhacky/api/* on http://localhost:3000.
 // Needs SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in the environment.
 import http from "node:http";
 import fs from "node:fs";
@@ -15,24 +15,24 @@ await build({
   packages: "external",
   outfile: out,
 });
-const { handleCitelyApi } = await import(out);
+const { handleCasinobyHackyApi } = await import(out);
 
 http
   .createServer(async (req, res) => {
     const url = new URL(req.url, "http://localhost");
     if (url.pathname === "/" ) {
-      res.writeHead(302, { location: "/citely" }).end();
+      res.writeHead(302, { location: "/casinobyhacky" }).end();
       return;
     }
-    if (/^\/citely\/?$/i.test(url.pathname)) {
+    if (/^\/casinobyhacky\/?$/i.test(url.pathname)) {
       res.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-cache" });
-      res.end(fs.readFileSync(path.join(root, "citely", "index.html")));
+      res.end(fs.readFileSync(path.join(root, "casinobyhacky", "index.html")));
       return;
     }
-    if (url.pathname.startsWith("/citely/api/")) {
+    if (url.pathname.startsWith("/casinobyhacky/api/")) {
       const chunks = [];
       for await (const c of req) chunks.push(c);
-      const r = await handleCitelyApi(
+      const r = await handleCasinobyHackyApi(
         new Request("http://localhost" + req.url, {
           method: req.method,
           headers: req.headers,
@@ -45,4 +45,4 @@ http
     }
     res.writeHead(404).end("Not found");
   })
-  .listen(3000, () => console.log("Citely on http://localhost:3000/citely"));
+  .listen(3000, () => console.log("CasinobyHacky on http://localhost:3000/casinobyhacky"));

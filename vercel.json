@@ -2,23 +2,57 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": false,
   "rewrites": [
-    { "source": "/citely/api/:path*", "destination": "/api/:path*" },
-    { "source": "/citely", "destination": "/citely/index.html" },
-    { "source": "/citely/", "destination": "/citely/index.html" }
+    {
+      "source": "/casinobyhacky/api/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/casinobyhacky",
+      "destination": "/casinobyhacky/index.html"
+    },
+    {
+      "source": "/casinobyhacky/",
+      "destination": "/casinobyhacky/index.html"
+    }
   ],
-  "redirects": [{ "source": "/", "destination": "/citely", "permanent": false }],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/casinobyhacky",
+      "permanent": false
+    },
+    {
+      "source": "/CasinobyHacky",
+      "destination": "/casinobyhacky",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
-      "source": "/citely(/?|/index.html)",
+      "source": "/casinobyhacky(/?|/index.html)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "same-origin" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "same-origin"
+        }
       ]
     },
     {
-      "source": "/citely/api/:path*",
-      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      "source": "/casinobyhacky/api/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }

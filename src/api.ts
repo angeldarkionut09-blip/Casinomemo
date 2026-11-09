@@ -1,10 +1,10 @@
 /**
- * Citely API — accounts, sessions and the encrypted casino list (served at /citely/api/*).
+ * CasinobyHacky API — accounts, sessions and the encrypted casino list (served at /casinobyhacky/api/*).
  *
  * The browser derives a key from the password (PBKDF2) and sends only a verifier;
  * the server stores a hash of that verifier and never sees the password or the
  * decryption key. The casino list arrives already encrypted (AES-GCM) and is stored as-is.
- * Tables: citely_accounts, citely_sessions, citely_vaults (service-role only).
+ * Tables: casinobyhacky_accounts, casinobyhacky_sessions, casinobyhacky_vaults (service-role only).
  */
 import crypto from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -52,12 +52,12 @@ async function createSession(client: SupabaseClient, username: string) {
   const token = crypto.randomBytes(32).toString("base64url");
   const expires = new Date(Date.now() + SESSION_DAYS * 86_400_000).toISOString();
   const { error } = await client
-    .from("citely_sessions")
+    .from("casinobyhacky_sessions")
     .insert({ token_hash: sha256(token), username, expires_at: expires });
   if (error) throw error;
   // opportunistic cleanup of this user's expired sessions
   await client
-    .from("citely_sessions")
+    .from("casinobyhacky_sessions")
     .delete()
     .eq("username", username)
     .lt("expires_at", new Date().toISOString());
@@ -69,7 +69,7 @@ async function sessionUser(client: SupabaseClient, request: Request): Promise<st
   const token = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
   if (!token || token.length > 200) return null;
   const { data } = await client
-    .from("citely_sessions")
+    .from("casinobyhacky_sessions")
     .select("username, expires_at")
     .eq("token_hash", sha256(token))
     .maybeSingle();
@@ -82,7 +82,7 @@ async function getSalt(client: SupabaseClient, url: URL) {
   const u = (url.searchParams.get("u") || "").trim().toLowerCase();
   if (!USERNAME_RE.test(u)) return fail("Nume de utilizator invalid.", 400);
   const { data, error } = await client
-    .from("citely_accounts")
+    .from("casinobyhacky_accounts")
     .select("salt")
     .eq("username", u)
     .maybeSingle();
@@ -91,7 +91,7 @@ async function getSalt(client: SupabaseClient, url: URL) {
     (data?.salt as string | undefined) ??
     crypto
       .createHash("sha256")
-      .update("citely-salt:" + u)
+      .update("casinobyhacky-salt:" + u)
       .digest()
       .subarray(0, 16)
       .toString("base64");
@@ -110,7 +110,7 @@ async function register(client: SupabaseClient, request: Request) {
   if (!isB64(salt, 64) || !VERIFIER_RE.test(verifier)) return fail("Cerere invalidă.", 400);
 
   const { error } = await client
-    .from("citely_accounts")
+    .from("casinobyhacky_accounts")
     .insert({ username, salt, verifier_hash: sha256(verifier) });
   if (error) {
     if (error.code === "23505") return fail("Există deja un cont cu acest nume.", 409);
@@ -129,7 +129,7 @@ async function login(client: SupabaseClient, request: Request) {
   if (!USERNAME_RE.test(username) || !VERIFIER_RE.test(verifier)) return wrong();
 
   const { data: acc, error } = await client
-    .from("citely_accounts")
+    .from("casinobyhacky_accounts")
     .select("verifier_hash, failed_attempts, locked_until")
     .eq("username", username)
     .maybeSingle();
@@ -142,7 +142,7 @@ async function login(client: SupabaseClient, request: Request) {
     const failed = (acc.failed_attempts as number) + 1;
     const locked = failed >= MAX_FAILED;
     await client
-      .from("citely_accounts")
+      .from("casinobyhacky_accounts")
       .update({
         failed_attempts: locked ? 0 : failed,
         locked_until: locked ? new Date(Date.now() + LOCK_MINUTES * 60_000).toISOString() : null,
@@ -152,7 +152,7 @@ async function login(client: SupabaseClient, request: Request) {
   }
   if (acc.failed_attempts || acc.locked_until) {
     await client
-      .from("citely_accounts")
+      .from("casinobyhacky_accounts")
       .update({ failed_attempts: 0, locked_until: null })
       .eq("username", username);
   }
@@ -161,7 +161,7 @@ async function login(client: SupabaseClient, request: Request) {
 
 async function getVault(client: SupabaseClient, username: string) {
   const { data, error } = await client
-    .from("citely_vaults")
+    .from("casinobyhacky_vaults")
     .select("iv, ct, updated_ms")
     .eq("username", username)
     .maybeSingle();
@@ -181,7 +181,7 @@ async function putVault(client: SupabaseClient, username: string, request: Reque
   ) {
     return fail("Lista e prea mare sau invalidă.", 400);
   }
-  const { error } = await client.from("citely_vaults").upsert({
+  const { error } = await client.from("casinobyhacky_vaults").upsert({
     username,
     iv: body!["iv"],
     ct: body!["ct"],
@@ -192,9 +192,9 @@ async function putVault(client: SupabaseClient, username: string, request: Reque
   return json({ ok: true });
 }
 
-export async function handleCitelyApi(request: Request): Promise<Response> {
+export async function handleCasinobyHackyApi(request: Request): Promise<Response> {
   const url = new URL(request.url);
-  // works for /citely/api/<route> (public URL) and /api/<route> (after the Vercel rewrite)
+  // works for /casinobyhacky/api/<route> (public URL) and /api/<route> (after the Vercel rewrite)
   const route = url.pathname.replace(/^.*?\/api\//, "").replace(/\/$/, "");
   const method = request.method.toUpperCase();
   try {
@@ -210,13 +210,13 @@ export async function handleCitelyApi(request: Request): Promise<Response> {
       if (route === "vault" && method === "PUT") return await putVault(client, username, request);
       if (route === "logout" && method === "POST") {
         const token = (request.headers.get("authorization") || "").slice(7).trim();
-        await client.from("citely_sessions").delete().eq("token_hash", sha256(token));
+        await client.from("casinobyhacky_sessions").delete().eq("token_hash", sha256(token));
         return json({ ok: true });
       }
     }
     return fail("Not found", 404);
   } catch (err) {
-    console.error("[citely]", err);
+    console.error("[casinobyhacky]", err);
     return fail("Serverul nu a putut procesa cererea. Încearcă din nou.", 500);
   }
 }

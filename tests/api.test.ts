@@ -1,13 +1,13 @@
 import crypto from "node:crypto";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-/* Minimal in-memory stand-in for the Supabase query builder calls the Citely API uses. */
+/* Minimal in-memory stand-in for the Supabase query builder calls the CasinobyHacky API uses. */
 type Row = Record<string, unknown>;
 const tables: Record<string, Row[]> = {};
 const KEYS: Record<string, string> = {
-  citely_accounts: "username",
-  citely_sessions: "token_hash",
-  citely_vaults: "username",
+  casinobyhacky_accounts: "username",
+  casinobyhacky_sessions: "token_hash",
+  casinobyhacky_vaults: "username",
 };
 
 function query(table: string) {
@@ -68,9 +68,9 @@ vi.mock("../src/db.js", () => ({
   getDb: () => ({ from: (t: string) => query(t) }),
 }));
 
-const { handleCitelyApi } = await import("../src/api.js");
+const { handleCasinobyHackyApi } = await import("../src/api.js");
 const call = (path: string, init: RequestInit = {}) =>
-  handleCitelyApi(new Request("https://auto-core.ro/citely/api/" + path, init));
+  handleCasinobyHackyApi(new Request("https://auto-core.ro/casinobyhacky/api/" + path, init));
 const post = (path: string, body: unknown, token?: string) =>
   call(path, {
     method: path === "vault" ? "PUT" : "POST",
@@ -83,7 +83,7 @@ const post = (path: string, body: unknown, token?: string) =>
 const verifier = (p: string) => crypto.createHash("sha256").update(p).digest("hex");
 const salt = crypto.randomBytes(16).toString("base64");
 
-describe("Citely API", () => {
+describe("CasinobyHacky API", () => {
   beforeEach(() => {
     for (const k of Object.keys(tables)) delete tables[k];
   });
@@ -118,7 +118,7 @@ describe("Citely API", () => {
 
   it("never stores the verifier itself and hides unknown accounts", async () => {
     await post("register", { username: "ana", salt, verifier: verifier("a") });
-    expect(tables["citely_accounts"]![0]!["verifier_hash"]).not.toBe(verifier("a"));
+    expect(tables["casinobyhacky_accounts"]![0]!["verifier_hash"]).not.toBe(verifier("a"));
     const fake = await (await call("salt?u=nimeni")).json();
     expect(fake.salt).toMatch(/^[A-Za-z0-9+/]+=*$/);
     expect((await post("login", { username: "nimeni", verifier: verifier("a") })).status).toBe(401);

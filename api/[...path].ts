@@ -1,6 +1,6 @@
-import { handleCitelyApi } from "../src/api.js";
+import { handleCasinobyHackyApi } from "../src/api.js";
 
-/** Vercel function for /api/* (public URL: /citely/api/*, see vercel.json). */
-export const GET = (request: Request) => handleCitelyApi(request);
-export const POST = (request: Request) => handleCitelyApi(request);
-export const PUT = (request: Request) => handleCitelyApi(request);
+/** Vercel function for /api/* (public URL: /casinobyhacky/api/*, see vercel.json). */
+export const GET = (request: Request) => handleCasinobyHackyApi(request);
+export const POST = (request: Request) => handleCasinobyHackyApi(request);
+export const PUT = (request: Request) => handleCasinobyHackyApi(request);

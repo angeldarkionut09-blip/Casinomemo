@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="Citely — evidența zilnică a sălilor de joc.">
+<meta name="description" content="CasinobyHacky — evidența zilnică a sălilor de joc.">
 <style>
   :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
   html,body{margin:0;background:#0d0915}
@@ -15,7 +15,7 @@
   img{max-width:100%}
   [hidden]{display:none!important}
 </style>
-<title>Citely</title>
+<title>CasinobyHacky</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Barlow:wght@400;500;600;700&family=Share+Tech+Mono&display=swap">
@@ -94,7 +94,7 @@ body{
 }
 .topper h1{
   margin:0;font-family:var(--f-display);font-weight:900;
-  font-size:clamp(38px,9vw,64px);line-height:1;letter-spacing:.06em;
+  font-size:clamp(26px,6.4vw,54px);line-height:1.05;letter-spacing:.02em;
   background:linear-gradient(180deg,#fff3c9 0%,var(--gold) 45%,var(--gold-deep) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 0 18px rgba(243,196,90,.45));
@@ -310,7 +310,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
   background:linear-gradient(165deg,#3b2a58,#150e22);
   border:3px solid var(--gold);box-shadow:0 0 60px rgba(243,196,90,.55), 0 0 0 8px rgba(168,115,255,.35);
 }
-.hero3d .tp{height:46px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:26px;letter-spacing:.08em;color:var(--gold);background:#120b1f;border:1px solid rgba(243,196,90,.4)}
+.hero3d .tp{height:46px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:21px;letter-spacing:.02em;color:var(--gold);background:#120b1f;border:1px solid rgba(243,196,90,.4)}
 .hero3d .sc{margin-top:14px;height:230px;border-radius:16px;background:radial-gradient(120% 90% at 50% 0%, #241640, #07040c 75%);border:1px solid #2c2042;display:flex;flex-direction:column;gap:10px;padding:22px}
 .hero3d .sc i{height:22px;border-radius:7px;background:#06040b;border:1px solid #382a54}
 .hero3d .sc i:last-child{background:linear-gradient(180deg,#ffe08f,var(--gold));border:0;margin-top:auto}
@@ -329,7 +329,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
 .door.l .handle{right:22px}.door.r .handle{left:22px}
 .door .dlogo{position:absolute;top:50%;width:100vw;transform:translateY(-50%);text-align:center}
 .door.l .dlogo{left:0}.door.r .dlogo{left:-50vw}
-.dlogo b{display:block;font-family:var(--f-display);font-weight:900;font-size:clamp(40px,11vw,96px);letter-spacing:.08em;line-height:1;
+.dlogo b{display:block;font-family:var(--f-display);font-weight:900;font-size:clamp(26px,6.4vw,80px);letter-spacing:.03em;line-height:1;
   background:linear-gradient(180deg,#fff3c9,var(--gold) 45%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
 .dlogo span{display:block;margin-top:12px;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .skip{
@@ -554,7 +554,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
   .wrap:not(.is-out) .cabinet{flex:1;min-height:0;display:flex;flex-direction:column;padding:8px;border-radius:26px}
   .wrap:not(.is-out) .cabinet::before{border-radius:28px}
   .wrap:not(.is-out) .topper{padding:8px 12px 7px;border-radius:18px;flex:none}
-  .wrap:not(.is-out) .topper h1{font-size:clamp(26px,5svh,38px)}
+  .wrap:not(.is-out) .topper h1{font-size:clamp(20px,min(4.4svh,6.2vw),36px)}
   .wrap:not(.is-out) .topper p{display:none}
   .wrap:not(.is-out) .ledstrip{margin-top:6px}
   .wrap:not(.is-out) .add-btn{margin-top:8px;min-height:44px;font-size:12px;flex:none}
@@ -586,7 +586,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
 }
 @media (max-height:640px){
   .wrap:not(.is-out) .ledstrip{display:none}
-  .wrap:not(.is-out) .topper h1{font-size:24px}
+  .wrap:not(.is-out) .topper h1{font-size:clamp(18px,5.6vw,24px)}
   .wrap:not(.is-out) .add-btn{min-height:40px}
   .wrap:not(.is-out) .next-btn{min-height:50px}
   .wrap:not(.is-out) .side-btn{min-height:46px;font-size:10px}
@@ -632,7 +632,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
   .wrap.is-out .cabinet{padding:10px;border-radius:28px}
   .wrap.is-out .cabinet::before{border-radius:30px}
   .wrap.is-out .topper{padding:clamp(10px,2svh,18px) 14px clamp(8px,1.6svh,14px);border-radius:20px}
-  .wrap.is-out .topper h1{font-size:clamp(30px,6.4svh,46px)}
+  .wrap.is-out .topper h1{font-size:clamp(22px,min(5.4svh,6.4vw),42px)}
   .wrap.is-out .topper p{font-size:11px;margin-top:4px;letter-spacing:.14em}
   .wrap.is-out .ledstrip{margin-top:clamp(8px,1.4svh,12px)}
   .wrap.is-out .screen{margin-top:8px;padding:clamp(10px,1.8svh,16px);gap:10px;border-radius:20px}
@@ -660,7 +660,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
 }
 
 @media (max-width:719px) and (max-height:580px){
-  .wrap.is-out .topper h1{font-size:28px}
+  .wrap.is-out .topper h1{font-size:clamp(18px,6vw,28px)}
   .wrap.is-out .tab{min-height:32px;padding:4px 10px}
   .wrap.is-out.is-reg #authForm{gap:6px}
   .wrap.is-out.is-reg input[type=text],.wrap.is-out.is-reg input[type=password]{min-height:40px;padding:7px 12px}
@@ -681,8 +681,8 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
   <div class="scene" aria-hidden="true"><div class="bob" id="bob"><div class="world" id="world"></div></div></div>
   <div class="fog" aria-hidden="true"></div>
   <div class="doors" aria-hidden="true">
-    <div class="door l" id="doorL"><div class="handle"></div><div class="dlogo"><b>CITELY</b><span>Bine ai venit</span></div></div>
-    <div class="door r" id="doorR"><div class="handle"></div><div class="dlogo"><b>CITELY</b><span>Bine ai venit</span></div></div>
+    <div class="door l" id="doorL"><div class="handle"></div><div class="dlogo"><b>CasinobyHacky</b><span>Bine ai venit</span></div></div>
+    <div class="door r" id="doorR"><div class="handle"></div><div class="dlogo"><b>CasinobyHacky</b><span>Bine ai venit</span></div></div>
   </div>
   <button class="skip" id="skip" type="button">Sari peste</button>
 </div>
@@ -690,7 +690,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
 <main class="wrap is-out" id="wrap">
   <div class="cabinet" id="cabinet">
     <div class="topper">
-      <h1>CITELY</h1>
+      <h1>CasinobyHacky</h1>
       <p>Evidența zilnică a sălilor de joc</p>
       <div class="ledstrip" id="ledstrip" aria-hidden="true"></div>
     </div>
@@ -885,7 +885,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
         w.appendChild(place(m, 170, 300, side*330, 50, z, 'rotateY('+(side<0?62:-62)+'deg)'));
       });
     }
-    const hero = div('hero3d','<div class="tp">CITELY</div><div class="sc"><i></i><i></i><i></i></div><div class="dk"></div>');
+    const hero = div('hero3d','<div class="tp">CasinobyHacky</div><div class="sc"><i></i><i></i><i></i></div><div class="dk"></div>');
     w.appendChild(place(hero, 380, 430, 0, -15, -3800, ''));
   }
   function playIntro(){
@@ -1019,7 +1019,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
   const b64 = buf => { const a = new Uint8Array(buf); let s=''; for (let i=0;i<a.length;i++) s += String.fromCharCode(a[i]); return btoa(s); };
   const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
   const hex = buf => Array.from(new Uint8Array(buf), x => x.toString(16).padStart(2,'0')).join('');
-  const SS = 'citely.session.v1';
+  const SS = 'casinobyhacky.session.v1';
   let session = null, unsubVault = null, localStamp = 0;
 
   async function derive(password, salt){
@@ -1030,7 +1030,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
   const aesKey = raw => crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['encrypt','decrypt']);
   function showMsg(t){ $('#formMsg').textContent = t; }
 
-  const API = '/citely/api/';
+  const API = '/casinobyhacky/api/';
   async function api(path, opts = {}){
     const headers = { 'content-type': 'application/json' };
     if (session && session.t) headers.authorization = 'Bearer ' + session.t;
@@ -1485,7 +1485,7 @@ input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--gold);
   playIntro();
   (async () => {
     db = true;
-    if (!(window.crypto && crypto.subtle) || !window.fetch){ authMsg('Browserul acesta e prea vechi pentru Citely. Deschide pagina în Chrome sau Safari actualizat.'); return; }
+    if (!(window.crypto && crypto.subtle) || !window.fetch){ authMsg('Browserul acesta e prea vechi pentru CasinobyHacky. Deschide pagina în Chrome sau Safari actualizat.'); return; }
     $('#authBtn').disabled = false; authMsg('');
     try {
       const s = JSON.parse(sessionStorage.getItem(SS) || 'null');
